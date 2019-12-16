@@ -1,9 +1,10 @@
 const {
   app,
-  BrowserWindow
+  BrowserWindow,
 } = require('electron')
 const url = require("url");
 const path = require("path");
+// window.fs = require("fs");
 
 let appWindow
 
@@ -33,7 +34,7 @@ function initWindow() {
   })
 }
 
-app.on('ready', initWindow)
+app.on('ready', initWindow);
 
 // Close when all windows are closed.
 app.on('window-all-closed', function () {
@@ -42,10 +43,20 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
+});
 
 app.on('activate', function () {
   if (win === null) {
     initWindow()
   }
-})
+});
+
+/* function openFile(path) {
+  win.webContents.send("getFileResponse", fs.readFileSync(path));
+}
+
+ipcMain.on("openFile", (event, path) => {
+  // process.chdir(path);
+  openFile(path);
+});
+ */

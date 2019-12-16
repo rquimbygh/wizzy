@@ -2,11 +2,13 @@
   <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile [colspan]="2" [rowspan]="1">
-      <app-file-drop></app-file-drop>
+      <app-file-drop
+        (fileOpen$)='onFileOpen'
+      ></app-file-drop>
     </mat-grid-tile>
   </mat-grid-list>
   <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-grid-tile *ngFor="let card of cards" [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -22,6 +24,7 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div>Card Content Here</div>
+          <app-pdf-viewer></app-pdf-viewer>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

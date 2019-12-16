@@ -15,13 +15,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { FileDropComponent } from './file-drop/file-drop.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     DashboardComponent,
-    FileDropComponent
+    FileDropComponent,
+    PdfViewerComponent
   ],
   imports: [
     BrowserModule,
