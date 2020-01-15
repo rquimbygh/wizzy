@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NavComponent } from './nav.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('NavComponent', () => {
   let component: NavComponent;
@@ -24,7 +25,8 @@ describe('NavComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
-      ]
+      ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     }).compileComponents();
   }));
 

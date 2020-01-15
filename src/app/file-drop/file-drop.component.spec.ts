@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileDropComponent } from './file-drop.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('FileDropComponent', () => {
   let component: FileDropComponent;
@@ -8,7 +9,8 @@ describe('FileDropComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FileDropComponent ]
+      declarations: [ FileDropComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     })
     .compileComponents();
   }));
