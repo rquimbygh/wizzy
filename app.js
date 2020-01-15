@@ -4,7 +4,6 @@ const {
 } = require('electron')
 const url = require("url");
 const path = require("path");
-// window.fs = require("fs");
 
 let appWindow
 
@@ -13,7 +12,7 @@ function initWindow() {
     width: 1000,
     height: 800,
     webPreferences: {
-      nodeIntegration: true
+      preload: path.join(app.getAppPath(), 'preload.js')
     }
   })
 
