@@ -13,9 +13,9 @@ export class PdfViewerComponent implements AfterViewInit {
   public context: CanvasRenderingContext2D;
 
   @Input()
-  set document(doc: File) {
-    if (doc) {
-      this.loadPdf(doc);
+  set file(file: File) {
+    if (file) {
+      this.loadPdf(file);
     }
   }
   private pdf: any;

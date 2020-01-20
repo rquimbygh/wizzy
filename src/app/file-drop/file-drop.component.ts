@@ -11,7 +11,7 @@ export class FileDropComponent {
 
   @Output() onFileUpload$ = new EventEmitter();
 
-  @ViewChild('file-drop', {static: false}) fileDrop: ElementRef;
+  @ViewChild('fileDrop', {static: false}) fileDrop: ElementRef;
 
   constructor(private dragDropDirective: DragDropDirective) { }
 

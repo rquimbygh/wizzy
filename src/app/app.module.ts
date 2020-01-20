@@ -17,6 +17,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FileDropComponent } from './file-drop/file-drop.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { DragDropDirective } from './directives/drag-drop/drag-drop.directive';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { DragDropDirective } from './directives/drag-drop/drag-drop.directive';
     BrowserAnimationsModule,
     CoreModule,
     LayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,

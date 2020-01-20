@@ -1,6 +1,16 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
+  <mat-grid-list cols="2" rowHeight="100px">
+    <form>
+      <mat-form-field >
+        <mat-label>Search</mat-label>
+        <input #searchField matInput>
+        <mat-hint>Find and compare text</mat-hint>
+        <mat-icon matSuffix (click)='onSearch()'>search</mat-icon>
+      </mat-form-field>
+    </form>
+  </mat-grid-list>
+  <mat-grid-list cols="2" rowHeight="100px">
     <mat-grid-tile [colspan]="2" [rowspan]="1">
       <app-file-drop
         (onFileUpload$)='onFileOpen($event)'
@@ -8,11 +18,11 @@
     </mat-grid-tile>
   </mat-grid-list>
   <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards" [colspan]="1" [rowspan]="1">
+    <mat-grid-tile *ngFor="let file of files" [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            {{card.title}}
+            {{file.name}}
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -23,8 +33,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-          <app-pdf-viewer [document]="document"></app-pdf-viewer>
+          <app-pdf-viewer [file]="file"></app-pdf-viewer>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

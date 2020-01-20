@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,22 +7,19 @@ import { Component } from '@angular/core';
 })
 
 export class DashboardComponent {
+  @ViewChild('search-field', {static: false}) searchField: ElementRef;
 
-  public document;
-
-  // private cards = [];
-  cards = [
-    { title: 'Card 1', cols: 1, rows: 1 },
-    { title: 'Card 2', cols: 1, rows: 1 },
-  ];
+  public files: File[] = [];
 
   constructor() {}
 
   onFileOpen(files: FileList) {
     // TODO - load PDF in card
     console.log('onFileOpen --> TODO open file in card');
-    if (files.length === 1) {
-      this.document = files[0];
-    }
+    this.files.push(files[0]);
+  }
+
+  onSearch() {
+    console.log('onSearch clicked');
   }
 }
