@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 
 export class DashboardComponent {
 
+  public document;
+
   // private cards = [];
   cards = [
     { title: 'Card 1', cols: 1, rows: 1 },
@@ -16,7 +18,11 @@ export class DashboardComponent {
 
   constructor() {}
 
-  onFileOpen(file: any) {
+  onFileOpen(files: FileList) {
     // TODO - load PDF in card
+    console.log('onFileOpen --> TODO open file in card');
+    if (files.length === 1) {
+      this.document = files[0];
+    }
   }
 }

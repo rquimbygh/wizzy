@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { FileSystemService } from '../services/file-system.service';
 
 declare var pdfjsLib: any;
 
@@ -9,26 +10,32 @@ declare var pdfjsLib: any;
 })
 export class PdfViewerComponent implements AfterViewInit {
 
-  @ViewChild('pdf_renderer', {static: false}) canvas: ElementRef;
+  @ViewChild('canvas', {static: false}) private canvas: ElementRef;
   public context: CanvasRenderingContext2D;
 
-  @Input() document
-  private pdf: any;
-  private zoom: number;
-  private currentPage; number;
-
-  constructor() { }
-
-  ngOnInit() {
+  @Input()
+  set document(doc: File) {
+    if (doc) {
+      this.loadPdf(doc);
+    }
   }
+  private pdf: any;
+  private zoom = { scale: 1.0 };
+  private currentPage; number = 1;
+
+  constructor(private fileSystemService: FileSystemService) {
+    pdfjsLib.workerSrc = "../../assets/pdf.min.js"
+   }
 
   ngAfterViewInit(): void {
-    // this.context = (<HTMLCanvasElement>this.canvas.nativeElement).getContext('2d');
-    // this.loadPdf();
+    this.context = (<HTMLCanvasElement>this.canvas.nativeElement).getContext('2d');
   }
 
-  loadPdf() {
-    pdfjsLib.getDocument('./my_document.pdf').then((pdf) => {
+  loadPdf(file: any) {
+    var rawData = this.fileSystemService.getFileRawData(file.path);
+
+    pdfjsLib.getDocument(rawData).then((pdf) => {
+      console.log("# PDF document loaded.");
       this.pdf = pdf;
       this.render();
     });

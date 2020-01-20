@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { FileDropComponent } from './file-drop/file-drop.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { DragDropDirective } from './directives/drag-drop/drag-drop.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
     NavComponent,
     DashboardComponent,
     FileDropComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    DragDropDirective,
   ],
   imports: [
     BrowserModule,

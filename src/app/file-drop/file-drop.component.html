@@ -1,10 +1,13 @@
-<mat-card class="file-drop-card">
-  <mat-card-content class="dashboard-card-content">
-    <div id='file-drop' (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+<mat-card
+  id='file-drop'
+  appDragDrop
+  (onFileDropped$)="uploadFile($event)"
+  (click)="fileInput.click()"
+  class="file-drop-card">
+  <mat-card-content class="dashboard-card-content" >
       <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
       <i class="material-icons">
           insert_drive_file
       </i>
-    </div>
   </mat-card-content>
 </mat-card>

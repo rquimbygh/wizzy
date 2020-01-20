@@ -3,7 +3,7 @@
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile [colspan]="2" [rowspan]="1">
       <app-file-drop
-        (fileOpen$)='onFileOpen'
+        (onFileUpload$)='onFileOpen($event)'
       ></app-file-drop>
     </mat-grid-tile>
   </mat-grid-list>
@@ -24,7 +24,7 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div>Card Content Here</div>
-          <app-pdf-viewer></app-pdf-viewer>
+          <app-pdf-viewer [document]="document"></app-pdf-viewer>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

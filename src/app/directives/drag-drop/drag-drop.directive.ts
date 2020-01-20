@@ -1,19 +1,10 @@
-import { Injectable, Output, HostBinding, HostListener } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Directive, Output, EventEmitter, HostListener, HostBinding } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
+@Directive({
+  selector: '[appDragDrop]'
 })
-export class DragDropService {
-  fs: any;
-
-  constructor() {
-    this.fs = (window as any).fs;
-
-    // electron.ipcRenderer.on('getFileResponse', this.getFileResponse);
-   }
-
-  @Output() onFileDropped = new BehaviorSubject<File[]>([]);
+export class DragDropDirective {
+  @Output() onFileDropped$ = new EventEmitter();
 	
   @HostBinding('style.background-color') private background = '#f5fcff'
   @HostBinding('style.opacity') private opacity = '1'
@@ -40,19 +31,9 @@ export class DragDropService {
     evt.stopPropagation();
     this.background = '#f5fcff'
     this.opacity = '1'
-    let files = evt.dataTransfer.files;
-    if (files.length === 1) {
-      this.openFile(files[0].path);
+    let files = evt.dataTransfer.files as FileList;
+    if (files.length > 0) {
+      this.onFileDropped$.emit(files)
     }
   }
-
-  public openFile(path: string) {
-    return this.fs.readFileSync(path);
-    // electron.ipcRenderer.send('openFile', path);
-  }
-
- /*  getFileResponse(event, files) {
-    this.onFileDropped.next(files);
-  } */
-
 }

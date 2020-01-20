@@ -1,24 +1,24 @@
-import { Component, ViewChild, ElementRef, Output, AfterViewInit } from '@angular/core';
-import { DragDropService } from '../services/drag-drop/drag-drop.service';
-import { Subject } from 'rxjs';
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { DragDropDirective } from '../directives/drag-drop/drag-drop.directive';
 
 @Component({
   selector: 'app-file-drop',
   templateUrl: './file-drop.component.html',
-  styleUrls: ['./file-drop.component.scss']
+  styleUrls: ['./file-drop.component.scss'],
+  providers: [ DragDropDirective],
 })
 export class FileDropComponent {
 
+  @Output() onFileUpload$ = new EventEmitter();
+
   @ViewChild('file-drop', {static: false}) fileDrop: ElementRef;
-  @Output() fileOpen$ = new Subject<any>();
 
-  constructor(private dragDropService: DragDropService) { }
+  constructor(private dragDropDirective: DragDropDirective) { }
 
-  uploadFile(event) {
-    for (let index = 0; index < event.length; index++) {
-      const element = event[index];
-      this.dragDropService.openFile(element.name);
-    }  
+  uploadFile(event: FileList) {
+    if (event.length > 0) {
+      this.onFileUpload$.emit(event)
+    }
   }
 
 }

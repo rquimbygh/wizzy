@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DragDropService } from './drag-drop.service';
+import { DragDropDirective } from './drag-drop.directive';
 
-describe('DragDropService', () => {
+describe('DragDropDirective', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: DragDropService = TestBed.get(DragDropService);
+    const service: DragDropDirective = TestBed.get(DragDropDirective);
     expect(service).toBeTruthy();
   });
 });

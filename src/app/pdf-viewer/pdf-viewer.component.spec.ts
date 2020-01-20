@@ -24,4 +24,8 @@ describe('PdfViewerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create a canvas context', () => {
+    expect(component.context).toBeTruthy();
+  });
 });
