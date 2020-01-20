@@ -1,14 +1,13 @@
 import { Component, ElementRef, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { FileSystemService } from '../services/file-system.service';
 
-declare var pdfjsLib: any;
-
 @Component({
   selector: 'app-pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss']
 })
 export class PdfViewerComponent implements AfterViewInit {
+  pdfjsLib: any;
 
   @ViewChild('canvas', {static: false}) private canvas: ElementRef;
   public context: CanvasRenderingContext2D;
@@ -21,10 +20,12 @@ export class PdfViewerComponent implements AfterViewInit {
   }
   private pdf: any;
   private zoom = { scale: 1.0 };
-  private currentPage; number = 1;
+  private currentPage: number = 1;
 
   constructor(private fileSystemService: FileSystemService) {
-    pdfjsLib.workerSrc = "../../assets/pdf.min.js"
+    this.pdfjsLib = (window as any).pdfjsLib;
+    // this.pdfjsLib.GlobalWorkerOptions.workerSrc = "assets/pdf.min.js"
+    this.pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${this.pdfjsLib.version}/pdf.worker.js`;
    }
 
   ngAfterViewInit(): void {
@@ -33,8 +34,8 @@ export class PdfViewerComponent implements AfterViewInit {
 
   loadPdf(file: any) {
     var rawData = this.fileSystemService.getFileRawData(file.path);
-
-    pdfjsLib.getDocument(rawData).then((pdf) => {
+    var loadingTask = this.pdfjsLib.getDocument(rawData);
+    loadingTask.promise.then((pdf) => {
       console.log("# PDF document loaded.");
       this.pdf = pdf;
       this.render();
@@ -43,12 +44,16 @@ export class PdfViewerComponent implements AfterViewInit {
 
   render() {
     this.pdf.getPage(this.currentPage).then((page) => { 
+      console.log("# Page ${this.currentPage} loaded.");
       var viewport = page.getViewport(this.zoom);
       this.canvas.nativeElement.width = viewport.width;
       this.canvas.nativeElement.height = viewport.height;
       page.render({
         canvasContext: this.context,
         viewport: viewport
+    });
+    page.getTextContent().then(textContent => {
+      // https://stackoverflow.com/a/20522307
     });
   });
   }
