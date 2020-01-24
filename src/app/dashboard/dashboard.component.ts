@@ -7,9 +7,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 
 export class DashboardComponent {
-  @ViewChild('search-field', {static: false}) searchField: ElementRef;
+  @ViewChild('searchField', {static: false}) searchField: ElementRef;
 
   public files: File[] = [];
+  public searchText: string;
 
   constructor() {}
 
@@ -21,5 +22,13 @@ export class DashboardComponent {
 
   onSearch() {
     console.log('onSearch clicked');
+    this.searchText = this.getSearchText();
+  }
+
+  getSearchText(): string {
+    if (!this.searchField || !this.searchField.nativeElement) {
+      return null;
+    }
+    return this.searchField.nativeElement.value; 
   }
 }
